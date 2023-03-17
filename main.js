@@ -66,15 +66,41 @@ async function teste() {
   // Raiz quadrada para adquirir um canvas power of two
   let CanvasSize = Math.ceil(Math.sqrt((size * 3) / 3));
 
+  /*
+  255= 100
+  x= y 
+  */
+
   for (let i = 0; i < size; i++) {
-    let r = 127 + (dataIMG[0][ind] - dataIMG[1][ind]);
-    let g = 127 + (dataIMG[0][ind + 1] - dataIMG[1][ind + 1]);
-    let b = 127 + (dataIMG[0][ind + 2] - dataIMG[1][ind + 2]);
+    let r = (dataIMG[0][ind] + dataIMG[1][ind]) / 2;
+    let g = (dataIMG[0][ind + 1] + dataIMG[1][ind + 1]) / 2;
+    let b = (dataIMG[0][ind + 2] + dataIMG[1][ind + 2]) / 2;
 
     ind = ind + 4;
 
     let cor = `rgb(${r},${g},${b})`;
     contextD.fillStyle = cor;
+    if (r < 0 || r > 255) {
+      console.log("erro RED", cor, i, dataIMG[0][ind], dataIMG[1][ind]);
+    }
+    if (g < 0 || g > 255) {
+      console.log(
+        "erro GREN",
+        cor,
+        i,
+        dataIMG[0][ind + 1],
+        dataIMG[1][ind + 1]
+      );
+    }
+    if (b < 0 || b > 255) {
+      console.log(
+        "erro BLUE",
+        cor,
+        i,
+        dataIMG[0][ind + 2],
+        dataIMG[1][ind + 2]
+      );
+    }
     //console.log(cor);
 
     let yPosition = Math.floor(i / CanvasSize);
@@ -123,13 +149,13 @@ async function teste2() {
   let CanvasSize = Math.ceil(Math.sqrt((size * 3) / 3));
 
   for (let i = 0; i < size; i++) {
-    /*let r = dataIMG[0][ind] + (dataIMG[0][ind] - dataIMG[1][ind]);
+    /*let r = 127 + (dataIMG[0][ind] - dataIMG[1][ind]);
     let g = dataIMG[0][ind + 1] + (dataIMG[0][ind + 1] - dataIMG[1][ind + 1]);
     let b = dataIMG[0][ind + 2] + (dataIMG[0][ind + 2] - dataIMG[1][ind + 2]);*/
 
-    let r = dataIMG[1][ind] - (dataIMG[0][ind] - dataIMG[1][ind]);
-    let g = dataIMG[1][ind + 1] - (dataIMG[0][ind + 1] - dataIMG[1][ind + 1]);
-    let b = dataIMG[1][ind + 2] - (dataIMG[0][ind + 2] - dataIMG[1][ind + 2]);
+    let r = -dataIMG[0][ind] + dataIMG[1][ind] * 2;
+    let g = -dataIMG[0][ind + 1] + dataIMG[1][ind + 1] * 2;
+    let b = -dataIMG[0][ind + 2] + dataIMG[1][ind + 2] * 2;
 
     ind = ind + 4;
 
